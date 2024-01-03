@@ -11,11 +11,12 @@ import { useDispatch } from 'react-redux';
 import Login from './Login';
 import {login, logout} from "./features/userSlice"
 function App() {
+  // const user = {};
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
   useEffect(()=> {
     console.log("-------------------------------------------------------------------")
-    auth.onAuthStateChanged(userAuth => {
+   auth.onAuthStateChanged(userAuth => {
       if(userAuth){
         dispatch(login({
           email: userAuth.email,
@@ -28,16 +29,21 @@ function App() {
         dispatch(logout());
       }
     })
+    console.log(auth)
   }, [])
   return (
     <div className="App">
-      <Header />
+     
       {!user ? (<Login /> ):(
+        <div className='app__head'>
+        <Header />
         <div className="app__body">
+        
         <Sidebar />
         <Feed /> 
         <Widgets />
         {/* Stopped at 4:00:00: Continue from here for firebase hosting */}
+     </div>
      </div>
       )}
      

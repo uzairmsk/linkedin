@@ -17,19 +17,20 @@ import FlipMove from 'react-flip-move';
 function Feed() {
 const [posts, setPosts] = useState([]);
 const [input, setInput] = useState('');
-const user = useSelector(selectUser);
+const [user, setUser] = useState(useSelector(selectUser));
 
 useEffect(() => {
     console.log("use Effect running from feed.jsx")
-db.collection("posts").orderBy('timestamp', 'desc').onSnapshot((snapshot) => (
+    const unsubscribe = db.collection("posts").orderBy('timestamp', 'desc').onSnapshot((snapshot) => (
     setPosts(snapshot.docs.map((doc) => (
         {
             id:doc.id,
             data: doc.data(),
         }
     )))
-))
-console.log(posts)
+  ))
+
+return () => unsubscribe();
 },[])
 
 
@@ -63,7 +64,7 @@ const sendPost = e =>{
             </div>
         </div>
         <FlipMove>        
-        {posts.map(({id, data: {name, description, message, photoUrl}}) => (
+        {posts.map(({id, data:{name, description, message, photoUrl}}) => (
                     //   console.log("from map function: ", name, description, message, photoUrl)
             <Post
             key={id}

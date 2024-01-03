@@ -8,7 +8,7 @@ import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined';
 import SendOutlinedIcon from '@mui/icons-material/SendOutlined';
 
 const Post = forwardRef(({name, description, message, photourl}, ref) => {
-  console.log(name, photourl)
+  // console.log(name, photourl)
   return (
     <div ref={ref} className='post'>
       <div className="post__header">
